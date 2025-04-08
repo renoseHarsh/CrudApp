@@ -1,0 +1,35 @@
+services:
+  mysql:
+    container_name: trades_db
+    image: mysql:lts
+    volumes:
+      - tradesdb:/var/lib/mysql
+    env_file:
+      - .env
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysql -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD -e 'SELECT 1'",
+        ]
+      timeout: 10s
+      retries: 10
+
+  flask:
+    container_name: crud_flask
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      - MYSQL_HOST=mysql
+    env_file:
+      - .env
+    command: "flask --app crudApp run --host=0.0.0.0"
+
+volumes:
+  tradesdb:

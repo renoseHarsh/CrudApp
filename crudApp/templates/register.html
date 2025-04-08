@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="d-flex flex-column text-white align-items-center bg-dark rounded-4 shadow-lg p-5" method="POST">
+    <h1 class="fw-bold text-center mb-3">Sign Up</h1>
+    {% if error %}
+    <p class="text-danger"> {{ error }}
+        {% endif %}
+    <div class="mb-4 w-100">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required
+            minlength="4" maxlength="50">
+    </div>
+    <div class="mb-5 w-100">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"
+            required minlength="4" maxlength="128">
+    </div>
+    <button type="submit" class="btn btn-primary w-50 fw-semibold shadow-sm rounded-pill">
+        Register
+    </button>
+    <a class="mt-2" href="{{url_for('main.login')}}">Login Here?</a>
+</form>
+{% endblock %}

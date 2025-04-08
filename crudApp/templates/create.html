@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="d-flex flex-column text-white align-items-center bg-dark rounded-4 shadow-lg p-5" method="POST">
+    <h1 class="fw-bold text-center mb-3">Create Employee</h1>
+    {% if error %}
+    <p class="text-danger"> {{ error }}
+        {% endif %}
+    <div class="mb-4 w-100">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Employee name" required minlength="3"
+            maxlength="100" {% if edit %} value="{{employee.Name}}" disabled {% endif %}>
+    </div>
+    <div class="mb-4 w-100">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Employee email" required
+            minlength="5" maxlength="100" {% if edit %} value="{{employee.Email}}" disabled {% endif %}>
+    </div>
+    <div class="mb-4 w-100">
+        <label for="department" class="form-label">Department</label>
+        <select class="form-select" id="department" name="department">
+            <option value="" {% if not edit %} selected {% endif %}disabled>Select a department</option>
+            <option value="HR" {% if edit and employee.Department=="HR" %} selected {% endif %}>HR</option>
+            <option value="IT" {% if edit and employee.Department=="IT" %} selected {% endif %}>IT</option>
+            <option value="Finance" {% if edit and employee.Department=="Finance" %} selected {% endif %}>Finance
+            </option>
+            <option value="Sales" {% if edit and employee.Department=="Sales" %} selected {% endif %}>Sales</option>
+        </select>
+    </div>
+    <div class="mb-4 w-100">
+        <label for="salary" class="form-label">Salary</label>
+        <input type="number" class="form-control" id="salary" name="salary" placeholder="Employee Salary" min="0"
+            step="0.01" max="1000000000.01" {% if edit %} value="{{employee.Salary}}" {% endif %}>
+    </div>
+    <div class="mb-5 w-100">
+        <label for="joiningDate" class="form-label">Joining Date</label>
+        <input type="date" class="form-control" id="joiningDate" name="joiningDate" placeholder="Employee Joining Date"
+            {% if edit %} value="{{employee.JoiningDate}}" disabled {% endif %}>
+    </div>
+    <button type="submit" class="btn btn-primary w-50 fw-semibold shadow-sm rounded-pill">
+        {% if edit %}Update{% else %}Create{% endif %}
+    </button>
+</form>
+{% endblock %}

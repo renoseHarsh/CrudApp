@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center align-self-start w-100">
+    <div class="w-100 d-flex justify-content-between align-items-center">
+        <span class="m-3 text-2xl fw-bold">
+            {{username}}
+        </span>
+        <a href="{{url_for('main.logout')}}" class="btn btn-danger m-3">
+            Logout
+        </a>
+    </div>
+    <a href="{{url_for('main.create_employee')}}" class="btn  btn-success m-3">Add New Employee</a>
+    <table class="table table-dark w-75">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Department</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Joining Date</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employees %}
+            <tr>
+                <th scope="col">{{emp.EmployeeID}}</th>
+                <th scope="col">{{emp.Name}}</th>
+                <th scope="col">{{emp.Email}}</th>
+                <th scope="col">{{emp.Department}}</th>
+                <th scope="col">{{emp.Salary}}</th>
+                <th scope="col">{{emp.JoiningDate}}</th>
+                <th scope="col"><a href="{{url_for('main.update_employee', employee_id=emp.EmployeeID)}}"
+                        class="btn btn-sm btn-primary">Update</a></th>
+                <th scope="col"><a href="{{url_for('main.delete_employee', employee_id=emp.EmployeeID)}}"
+                        class="btn btn-sm btn-danger">Delete</a></th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
