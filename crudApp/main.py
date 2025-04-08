@@ -14,6 +14,7 @@ from flask import (
 from sqlalchemy import update
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 from .models import *
 from .sqlalchemy import db
 
